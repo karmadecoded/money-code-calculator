@@ -225,46 +225,6 @@
 <script>
 let useCount = 0;
 const maxUses = 3;
-let keyUsageCount = 0;
-const maxKeyUses = 3;
-let isAuthenticated = false;
-async function checkLicenseKey() {
-  const licenseKey = prompt("Enter your license key:");
-  
-  if (!licenseKey) {
-    document.body.innerHTML = "<h2>License Required</h2><p>You need a valid license key to use this calculator.</p>";
-    return;
-  }
-
-  try {
-    const response = await fetch('/api/verify-license', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        licenseKey: licenseKey,
-        productSecret: 'prod_sk_I0HoN_1cec7d3b8744938ce5dcbb954cf7f847bef9b1f5'
-      })
-    });
-
-    const result = await response.json();
-    console.log('License verification result:', result);
-
-    if (result.valid) {
-      isAuthenticated = true;
-      document.getElementById('section1').style.display = 'block';
-      alert("License verified! Welcome!");
-    } else {
-      alert("Invalid license key. Error: " + (result.error || 'Unknown error'));
-      checkLicenseKey(); // Ask again
-    }
-  } catch (error) {
-    console.error('License verification failed:', error);
-    alert("License verification failed. Please check your internet connection and try again.");
-    checkLicenseKey(); // Ask again
-  }
-}
 
 function reduceToSingleDigit(num) {
   while (num > 9) {
@@ -308,13 +268,8 @@ function calculateEnergies(dob) {
 }
 
 function calculate() {
-  if (!isAuthenticated) {
-    alert("License verification required");
-    return;
-  }
-  
   if (useCount >= maxUses) {
-    alert("You have used all 3 calculations for this session. Refresh the page to enter a new license key.");
+    alert("You have reached your maximum usage limit.");
     return;
   }
   
@@ -507,15 +462,11 @@ document.getElementById('saveBtn').addEventListener('click', () => {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 });
-// Hide content initially and check license
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('section1').style.display = 'none';
-  checkLicenseKey();
-});
-
 </script>
 </body>
 </html>
+
+
 
 
 
