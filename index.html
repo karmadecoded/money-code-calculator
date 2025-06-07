@@ -145,6 +145,189 @@
       min-height: 80vh;
       text-align: center;
     }
+    /* COMPLETE MOBILE OPTIMIZATION - IS */
+@media screen and (max-width: 768px) {
+  body {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .section {
+    padding: 20px 15px;
+    text-align: center;
+    margin: 0 auto;
+  }
+  
+  .initial-view {
+    min-height: 70vh;
+    padding: 30px 15px;
+    justify-content: center;
+  }
+  
+  /* Perfect headline sizes */
+  h2 {
+    font-size: 32px !important;
+    margin: 25px 0 !important;
+    line-height: 1.2 !important;
+    text-align: center;
+  }
+  
+  h5 {
+    font-size: 20px !important;
+    margin: 20px 0 !important;
+    text-align: center;
+  }
+  
+  /* Perfect input size */
+  #dob {
+    width: 90% !important;
+    max-width: 350px !important;
+    height: 60px !important;
+    font-size: 20px !important;
+    padding: 15px !important;
+    border: 3px solid #511C62 !important;
+    border-radius: 10px !important;
+    margin: 25px auto !important;
+    text-align: center !important;
+    display: block !important;
+    box-sizing: border-box;
+  }
+  
+  /* Perfect button size */
+  .calculate-btn, .save-btn {
+    width: 90% !important;
+    max-width: 350px !important;
+    height: 65px !important;
+    font-size: 22px !important;
+    padding: 18px 25px !important;
+    margin: 25px auto !important;
+    display: block !important;
+    border-radius: 10px !important;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+  
+  /* Perfect energy boxes */
+  .energy-box {
+    font-size: 20px !important;
+    padding: 20px 25px !important;
+    margin: 20px auto !important;
+    max-width: 95% !important;
+    text-align: center !important;
+    border-radius: 10px !important;
+  }
+  
+  /* Perfect star container */
+  .star-container {
+    max-width: 280px !important;
+    width: 90% !important;
+    margin: 30px auto !important;
+    position: relative !important;
+  }
+  
+  /* Perfect triangle container */
+  .triangle-container {
+    max-width: 280px !important;
+    width: 90% !important;
+    margin: 30px auto !important;
+    position: relative !important;
+  }
+  
+  /* Perfect energy labels */
+  .energy-label {
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    border: 2px solid #511C62 !important;
+  }
+  
+  /* Adjusted star positions for mobile */
+  .star-9oclock { left: -19px !important; top: 30% !important; }
+  .star-12oclock { left: 50% !important; top: -19px !important; transform: translateX(-50%) !important; }
+  .star-3oclock { right: -19px !important; top: 30% !important; }
+  .star-5oclock { right: 8% !important; bottom: 8% !important; }
+  .star-7oclock { left: 8% !important; bottom: 8% !important; }
+  
+  /* Adjusted triangle positions for mobile */
+  .tri-top { left: 50% !important; top: -19px !important; transform: translateX(-50%) !important; }
+  .tri-bottom-left { left: -19px !important; bottom: -19px !important; }
+  .tri-bottom-right { right: -19px !important; bottom: -19px !important; }
+  .tri-mid-left { left: 12% !important; top: 50% !important; transform: translateY(-50%) !important; }
+  .tri-mid-right { right: 12% !important; top: 50% !important; transform: translateY(-50%) !important; }
+  .tri-bottom-center { left: 50% !important; bottom: -19px !important; transform: translateX(-50%) !important; }
+  
+  /* Perfect table for mobile */
+  table {
+    font-size: 14px !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    display: block !important;
+    white-space: nowrap !important;
+    margin: 20px 0 !important;
+  }
+  
+  th, td {
+    padding: 12px 8px !important;
+    font-size: 13px !important;
+    min-width: 80px;
+  }
+  
+  /* Perfect text */
+  p {
+    font-size: 18px !important;
+    line-height: 1.6 !important;
+    margin: 20px 0 !important;
+    text-align: center !important;
+  }
+  
+  /* Center everything */
+  .section > * {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* For very small phones */
+@media screen and (max-width: 480px) {
+  h2 {
+    font-size: 28px !important;
+  }
+  
+  h5 {
+    font-size: 18px !important;
+  }
+  
+  #dob {
+    font-size: 18px !important;
+    height: 55px !important;
+  }
+  
+  .calculate-btn, .save-btn {
+    font-size: 20px !important;
+    height: 60px !important;
+  }
+  
+  .energy-label {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 14px !important;
+  }
+  
+  .star-container, .triangle-container {
+    max-width: 250px !important;
+  }
+  
+  table {
+    font-size: 12px !important;
+  }
+  
+  th, td {
+    padding: 8px 4px !important;
+    font-size: 11px !important;
+    min-width: 60px;
+  }
+}
   </style>
 </head>
 <body>
@@ -493,7 +676,6 @@ ${energyTable.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ')}
 </script>
 </body>
 </html>
-
 
 
 
