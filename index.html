@@ -215,7 +215,7 @@
   <h2>Your Energies Decoded</h2>
   <div id="energyTable"></div>
   <br>
-  <button class="save-btn" id="saveBtn">Save Your Codes</button>
+  <button class="save-btn" id="saveBtn">Save</button>
 </div>
 
 <div class="footer">
@@ -223,7 +223,7 @@
 </div>
 
 <script>
-let useCount = 0;
+let useCount = parseInt(localStorage.getItem('karmaDecodedUses') || '0');
 const maxUses = 3;
 
 function reduceToSingleDigit(num) {
@@ -295,6 +295,8 @@ if (year < 1900 || year > 2100) {
   }
   
   useCount++;
+localStorage.setItem('karmaDecodedUses', useCount.toString());
+
   
   // Show all hidden sections
   document.getElementById('section2').classList.remove('hidden');
@@ -448,20 +450,46 @@ document.getElementById('saveBtn').addEventListener('click', () => {
     alert("Please calculate first.");
     return;
   }
-  
+
   const energies = calculateEnergies(dob);
-  const textContent = `Personal Code of Success: ${energies.energy1}, ${energies.energy2}, ${energies.energy3}, ${energies.energy4}, ${energies.energy5}\nMoney Triangle Energies: ${energies.topEnergy}, ${energies.bottomLeftEnergy}, ${energies.bottomRightEnergy}, ${energies.midLeftEnergy}, ${energies.midRightEnergy}, ${energies.bottomCenterEnergy}`;
   
-  const blob = new Blob([textContent], {type: 'text/plain'});
+  // Get all the content from the visible sections
+  const starDescriptions = document.getElementById('starDescriptions').innerHTML;
+  const triangleDescriptions = document.getElementById('triangleDescriptions').innerHTML;
+  const energyTable = document.getElementById('energyTable').innerHTML;
+  
+  // Create comprehensive content
+  const fullContent = `
+KARMA DECODED - Your Complete Numerology Report
+Date of Birth: ${dob}
+
+=== YOUR PERSONAL CODE OF SUCCESS ===
+Star Energies: ${energies.energy1}, ${energies.energy2}, ${energies.energy3}, ${energies.energy4}, ${energies.energy5}
+
+${starDescriptions.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ')}
+
+=== YOUR MONEY TRIANGLE ===
+Triangle Energies: ${energies.topEnergy}, ${energies.bottomLeftEnergy}, ${energies.bottomRightEnergy}, ${energies.midLeftEnergy}, ${energies.midRightEnergy}, ${energies.bottomCenterEnergy}
+
+${triangleDescriptions.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ')}
+
+=== YOUR ENERGIES DECODED TABLE ===
+${energyTable.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ')}
+
+© 2025 Karma_Decoded | Maria Fistican. All rights reserved.
+  `;
+
+  const blob = new Blob([fullContent], {type: 'text/plain'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `Numerology_Codes_${dob}.txt`;
+  a.download = `Complete_Numerology_Report_${dob}.txt`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 });
+
 </script>
 </body>
 </html>
