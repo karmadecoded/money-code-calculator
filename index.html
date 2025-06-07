@@ -1,0 +1,522 @@
+Put your HTML text here<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KARMA DECODED</title>
+  <style>
+        body {
+      font-family: 'Alice', serif;
+      background-color: #F7EAF9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    h2 {
+      font-family: 'Apricot', cursive;
+      color: #511C62;
+    }
+    .apricot {
+      font-family: 'Apricot', cursive;
+    }
+    .calculate-btn {
+      font-family: 'Apricot', cursive;
+    }
+    th {
+      font-family: 'Apricot', cursive;
+    }
+
+    .section {
+      padding: 20px;
+      border-bottom: 2px solid #ccc;
+    }
+    .hidden {
+      display: none;
+    }
+    .energy-box {
+      display: inline-block;
+      background: white;
+      border-radius: 8px;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+    }
+    .calculate-btn, .save-btn {
+      background-color: #511C62;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+        th, td {
+      border: 1px solid #511C62;
+      padding: 10px;
+      text-align: center;
+    }
+    table th {
+      background-color: #511C62;
+      color: white;
+      border-right: 2px solid white;
+    }
+    table th:last-child {
+      border-right: 1px solid #511C62;
+    }
+    td {
+      border-right: 1px solid #511C62;
+    }
+    .footer {
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+      background: #511C62;
+      color: white;
+      margin-top: auto;
+    }
+
+    }
+    .footer {
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+      background: #511C62;
+      color: white;
+      margin-top: auto;
+    }
+    /* Updated selector for SVG */
+    svg.star-img, svg.triangle-img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+      fill: #511C62;
+      stroke: #511C62;
+      stroke-width: 1;
+    }
+    .star-container, .triangle-container {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      max-width: 400px;
+      margin: 20px auto;
+    }
+    .energy-label {
+      position: absolute;
+      background: white;
+      border: 2px solid #511C62;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #511C62;
+      font-size: 14px;
+    }
+    /* Star energy positions */
+    .star-9oclock { left: -20px; top: 30%; transform: translateY(-50%); }
+    .star-12oclock { left: 50%; top: -20px; transform: translateX(-50%); }
+    .star-3oclock { right: -20px; top: 30%; transform: translateY(-50%); }
+    .star-5oclock { right: 10%; bottom: 10%; }
+    .star-7oclock { left: 10%; bottom: 10%; }
+    
+    /* Triangle energy positions */
+    .tri-top { left: 50%; top: -20px; transform: translateX(-50%); }
+    .tri-bottom-left { left: -20px; bottom: -20px; }
+    .tri-bottom-right { right: -20px; bottom: -20px; }
+    .tri-mid-left { left: 15%; top: 50%; transform: translateY(-50%); }
+    .tri-mid-right { right: 15%; top: 50%; transform: translateY(-50%); }
+    .tri-bottom-center { left: 50%; bottom: -20px; transform: translateX(-50%); }
+
+    .initial-view {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 80vh;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div class="section" id="section1">
+  <div class="initial-view">
+    <h2>Your prosperity code</h2>
+    <h5> Enter Your Date of Birth</h5>
+    <input type="date" id="dob" min="1900-01-01" max="2100-12-31" />
+
+    <br><br>
+    <button class="calculate-btn apricot" onclick="calculate()">Calculate</button>
+  </div>
+</div>
+
+<div class="section hidden" id="section2">
+  <h2>Your Personal Code of Success</h2>
+  <div id="starEnergies" class="energy-box apricot"></div>
+  
+  <div class="star-container">
+    <!-- Inline SVG for Five-Pointed Star -->
+    <svg class="star-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <title>Personal Star</title>
+      <polygon points="50,0 61.8,35.4 98.8,35.4 68.2,57.7 79.4,92.6 50,70.3 20.6,92.6 31.8,57.7 1.2,35.4 38.2,35.4" />
+    </svg>
+    
+    <!-- Star Energy Labels -->
+    <div class="energy-label star-9oclock" id="star-pos-1"></div>
+    <div class="energy-label star-12oclock" id="star-pos-2"></div>
+    <div class="energy-label star-3oclock" id="star-pos-3"></div>
+    <div class="energy-label star-5oclock" id="star-pos-4"></div>
+    <div class="energy-label star-7oclock" id="star-pos-5"></div>
+  </div>
+  
+  <div id="starDescriptions"></div>
+</div>
+
+<div class="section hidden" id="section3">
+  <h2>Your Money Triangle</h2>
+  <p>This Money Triangle reveals the hidden financial energies that influence your material world. It shows how your yearly money energy connects with relationships, discipline, and spending tendencies. Each point represents an energetic aspect influencing your financial decisions.</p>
+  
+    <div id="triangleEnergies" class="energy-box apricot"></div>
+  
+  <div class="triangle-container">
+    <!-- Inline SVG for Triangle -->
+    <svg class="triangle-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <title>Money Triangle</title>
+      <polygon points="50,0 100,100 0,100" />
+      <!-- Inner upside-down triangle - just lines connecting middle positions -->
+      <line x1="25" y1="50" x2="75" y2="50" stroke="#511C62" stroke-width="1"/>
+      <line x1="25" y1="50" x2="50" y2="85" stroke="#511C62" stroke-width="1"/>
+      <line x1="75" y1="50" x2="50" y2="85" stroke="#511C62" stroke-width="1"/>
+    </svg>
+    
+    <!-- Triangle Energy Labels -->
+    <div class="energy-label tri-top" id="tri-pos-top"></div>
+    <div class="energy-label tri-bottom-left" id="tri-pos-bottom-left"></div>
+    <div class="energy-label tri-bottom-right" id="tri-pos-bottom-right"></div>
+    <div class="energy-label tri-mid-left" id="tri-pos-mid-left"></div>
+    <div class="energy-label tri-mid-right" id="tri-pos-mid-right"></div>
+    <div class="energy-label tri-bottom-center" id="tri-pos-bottom-center"></div>
+  </div>
+  
+ 
+  <div id="triangleDescriptions"></div>
+</div>
+
+<div class="section hidden" id="section4">
+  <h2>Your Energies Decoded</h2>
+  <div id="energyTable"></div>
+  <br>
+  <button class="save-btn" id="saveBtn">Save Your Codes</button>
+</div>
+
+<div class="footer">
+  © 2025 Karma_Decoded | Maria Fistican.  All rights reserved.
+</div>
+
+<script>
+let useCount = 0;
+const maxUses = 3;
+let keyUsageCount = 0;
+const maxKeyUses = 3;
+let isAuthenticated = false;
+async function checkLicenseKey() {
+  const licenseKey = prompt("Enter your license key:");
+  
+  if (!licenseKey) {
+    document.body.innerHTML = "<h2>License Required</h2><p>You need a valid license key to use this calculator.</p>";
+    return;
+  }
+  
+  try {
+    // Verify with Payhip API
+    const response = await fetch('/api/verify-license', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 
+        licenseKey: licenseKey,
+        productSecret: 'prod_sk_I0HoN_1cec7d3b8744938ce5dcbb954cf7f847bef9b1f5'
+      })
+    });
+    
+    const result = await response.json();
+    
+    if (result.valid) {
+      isAuthenticated = true;
+      document.getElementById('section1').style.display = 'block';
+      alert(`License verified! You can use this calculator ${maxKeyUses} times in this session.`);
+    } else {
+      alert("Invalid license key");
+      document.body.innerHTML = "<h2>Invalid License</h2><p>The license key you entered is not valid.</p>";
+    }
+    
+  } catch (error) {
+    alert("Error verifying license. Please try again.");
+    console.error('License verification error:', error);
+  }
+}
+
+
+function reduceToSingleDigit(num) {
+  while (num > 9) {
+    num = num.toString().split('').reduce((a,b) => a + Number(b), 0);
+  }
+  return num;
+}
+
+function calculateEnergies(dob) {
+  const date = new Date(dob);
+  if (isNaN(date)) return null;
+  
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  
+  // Star energies with new positioning logic
+  const energy1 = reduceToSingleDigit(day);        // 9 o'clock - day of birth
+  const energy2 = reduceToSingleDigit(month);      // 12 o'clock - month of birth
+  const energy3 = reduceToSingleDigit(year);       // 3 o'clock - year of birth
+  const energy4 = reduceToSingleDigit(energy1 + energy2 + energy3); // 5 o'clock - sum of previous
+  const energy5 = reduceToSingleDigit(energy1 + energy2 + energy3 + energy4); // 7 o'clock - sum of all previous
+  
+  // Triangle energies - only 6 energies total
+  const top = reduceToSingleDigit(year);                    // Top: year of birth
+  const bottomLeft = reduceToSingleDigit(year + month);     // Left bottom: year + month
+  const bottomRight = reduceToSingleDigit(year + energy4);  // Right bottom: year + 4th energy from star
+  const bottomCenter = reduceToSingleDigit(bottomLeft + bottomRight); // Middle bottom: left + right bottom
+  const midLeft = reduceToSingleDigit(year + bottomLeft);   // Wing left middle: year + left bottom
+  const midRight = reduceToSingleDigit(year + bottomRight); // Wing right middle: year + right bottom
+
+  return {
+    energy1, energy2, energy3, energy4, energy5,
+    topEnergy: top,
+    bottomLeftEnergy: bottomLeft,
+    bottomRightEnergy: bottomRight,
+    midLeftEnergy: midLeft,
+    midRightEnergy: midRight,
+    bottomCenterEnergy: bottomCenter
+  };
+}
+
+function calculate() {
+  if (!isAuthenticated) {
+    alert("License verification required");
+    return;
+  }
+  
+  if (useCount >= maxUses) {
+    alert("You have used all 3 calculations for this session. Refresh the page to enter a new license key.");
+    return;
+  }
+  
+  const dob = document.getElementById('dob').value;
+if (!dob) {
+  alert("Please enter your birth date first.");
+  return;
+}
+
+// Validate year format
+const date = new Date(dob);
+const year = date.getFullYear();
+if (year < 1900 || year > 2100) {
+  alert("Please enter a valid year between 1900 and 2100.");
+  return;
+}
+
+  
+  const energies = calculateEnergies(dob);
+  if (!energies) {
+    alert("Invalid date.");
+    return;
+  }
+  
+  useCount++;
+  
+  // Show all hidden sections
+  document.getElementById('section2').classList.remove('hidden');
+  document.getElementById('section3').classList.remove('hidden');
+  document.getElementById('section4').classList.remove('hidden');
+  
+  // Update the initial view to be less prominent
+  document.querySelector('.initial-view').style.minHeight = 'auto';
+  document.querySelector('.initial-view').style.justifyContent = 'flex-start';
+  
+  // Update star energy positions
+  document.getElementById('star-pos-1').textContent = energies.energy1;
+  document.getElementById('star-pos-2').textContent = energies.energy2;
+  document.getElementById('star-pos-3').textContent = energies.energy3;
+  document.getElementById('star-pos-4').textContent = energies.energy4;
+  document.getElementById('star-pos-5').textContent = energies.energy5;
+  
+  // Update triangle energy positions
+  document.getElementById('tri-pos-top').textContent = energies.topEnergy;
+  document.getElementById('tri-pos-bottom-left').textContent = energies.bottomLeftEnergy;
+  document.getElementById('tri-pos-bottom-right').textContent = energies.bottomRightEnergy;
+  document.getElementById('tri-pos-mid-left').textContent = energies.midLeftEnergy;
+  document.getElementById('tri-pos-mid-right').textContent = energies.midRightEnergy;
+  document.getElementById('tri-pos-bottom-center').textContent = energies.bottomCenterEnergy;
+  
+  // Display star energies before the star diagram
+  const starBox = document.getElementById('starEnergies');
+  starBox.textContent = `${energies.energy1}, ${energies.energy2}, ${energies.energy3}, ${energies.energy4}, ${energies.energy5}`;
+  
+  const descriptions = {
+    1: "Energy 1 — You are a pioneer, born to create what no one else has created before. When people like you emerge, great revolutions happen in the world. You have the power to lead others, to manage and guide them. You can help people grow on a large scale and inspire them to follow you through your ideas and actions. Your greatest challenge is the fear of stepping forward, of being a leader, and of leading others. Yet, you possess tremendous potential for this! You can be a strong entrepreneur, a businesswoman, and lead vast crowds of people. All you need to do is unlock your financial triangle and discover your true potential.",
+    2: "Energy 2 — This means you are born to unite people and support them  especially women and children. You possess the gift of persuasion, strong intuition, and the ability to build meaningful connections. You have the power to transform others through your voice, ancestral strength, and the knowledge accessible to you from the universal library. Your greatest challenge is a deep-rooted feeling of being unloved. You often diminish your own worth, constantly focusing on your flaws. It may seem like others are better or more impressive than you  but this is a false belief. In truth, people like you possess a powerful gift for extrasensory perception. You can read others deeply and intuitively, and numerology is especially well-suited to your nature. You simply need to uncover your true purpose and scale your unique abilities.",
+    3: "Energy 3 — You are born to inspire others through your example to spark transformation and impact on a global scale. You are a deeply creative and talented individual, capable of becoming a role model for millions. You are meant to be seen, to stand on stage, to shine. Threes are often popular bloggers, trendsetting influencers  and abundance flows to them through children. The more children around them, the more prosperity they attract. Your greatest challenge is the fear of being visible. Putting yourself out there on social media and showing the world who you are that is the one step separating you from true success. This inner fear causes you to swing from one extreme to another. You may immerse yourself completely in motherhood, becoming a supermom dedicated to your children and partner, avoiding work and personal fulfillment. Or, you might swing the other way diving into business and neglecting family life altogether. The key is balance  right in the middle. Your superpower lies in working with women and expressing yourself among women. But first, you must discover exactly where and how to step into your full expression.",
+    4: "Energy 4 —  You are born to be a world builder to create new fundamental directions, make discoveries, and develop businesses that help others stand on their own and transform. Your greatest challenge is workaholism. You carry the weight of everything on your shoulders. Even when you are not working professionally, you take responsibility for everything at home. You constantly strive to help everyone and save those around you. Often, your hard work goes unappreciated, and the people close to you tend to be consumers of your efforts. Your superpower lies in channeling this dynamic into your own business, rather than spending your life working for others. You simply need to unlock your full potential.",
+    5: "Energy 5 — This means you are born to be a spiritual mentor and teacher to others. Your mission is to transmit all the knowledge and information that comes to you. You have the ability to integrate diverse knowledge into your own teaching and transform the consciousness of others. Your greatest challenge is dispersion. You are constantly exploring different paths, always learning and seeking new knowledge. Because of this, you struggle to focus on one thing and finally begin to earn significant income. Endless learning and a conservative mindset that fears embracing the new and tends to reject it, these are your main blocks to overcome. Because, in truth, you are a spiritual guided.",
+    6: "Energy 6 — This means you are born under the energy of 6 — here to teach others how to love themselves and to recognize the beauty in the world around them. You have the gift of creating beauty and opening the hearts of others. Those born under the energy of 6 often carry the vibration of true love, purity, and harmony. They are natural artists, actors, presenters, and content creators. When you follow your path and align with the areas where your greatest abundance lies, your personal and professional growth can be rapid and expansive. Your greatest challenge is being overly critical of your own appearance and sense of beauty. You have a sensitive soul , easily wounded, deeply attuned to the emotions and energies around you. This sensitivity, while a gift, can also become a block. But when you truly accept yourself, love yourself as you are, and stop dissolving into others' needs or identities, your potential for growth becomes limitless.",
+    7: "Energy 7 — This means you are the kind of person capable of revolutions. You are born to uncover meanings, get to the truth, and make discoveries that others cannot. You are a cosmic being without a home, borders, or the concept of the impossible. Your greatest challenge is the fear of expansion and growth. You hesitate to make quantum leaps, to relocate, or to embrace the new. You also struggle with laziness. The downside of the number seven is often lethargy, slowness, reluctance to dive deeply, abandoning goals halfway through all of which are strictly forbidden for you. Because your superpower is quantum leaps and rapid growth. You just need to know where to direct yourself.",
+    8: "Energy 8 — This means you are born under the energy of 8  to expand the financial potential of this world by recognizing cause-and-effect patterns and understanding the laws of karma. You have the ability to create true balance between the spiritual and the material. You carry the most financially abundant energy in numerology, with enormous potential for building your own business and creating long-term wealth. Your greatest challenge is an intensified sense of justice. You often find yourself in internal conflict, constantly trying to make sure everything is fair and \"done right\", but in the process, you forget to live for yourself.",
+    9: "Energy 9 — You are a natural healer. You didn't come into this world by accident — you are here to heal others by restoring their minds, bodies, and souls through your powerful energy. Those born under the energy of 9 often carry a deep soul mission to uplift and transform those around them. Your greatest challenge is the impostor syndrome. You tend to undervalue your knowledge and constantly feel like you're not \"good enough\" to begin. You also carry the rescuer complex  the urge to help everyone but yourself: working for free, avoiding raising your rates, and prioritizing the needs of your mother, grandmother, partner, or father. In the end, you pour all your energy into other only to say there's nothing left for yourself. But in truth, this is one of the most spiritually profound energies in numerology. And the moment you turn inward  into self-discovery, inner work, and practices like numerology you unlock your true calling."
+  };
+  
+      // Count occurrences of each energy in the star
+  const starEnergies = [energies.energy1, energies.energy2, energies.energy3, energies.energy4, energies.energy5];
+  const starCount = {};
+  starEnergies.forEach(e => starCount[e] = (starCount[e] || 0) + 1);
+  
+  // Create descriptions without duplicates, showing count
+  let descText = "";
+  const starShown = new Set();
+  starEnergies.forEach(num => {
+    if (!starShown.has(num)) {
+      starShown.add(num);
+      const desc = descriptions[num];
+      const parts = desc.split(' — ');
+      const mult = starCount[num] > 1 ? ` (x${starCount[num]})` : "";
+      descText += `<p><span class="apricot">${parts[0]}${mult}</span> — ${parts[1]}</p>`;
+    }
+  });
+  document.getElementById('starDescriptions').innerHTML = descText;
+
+
+  
+  const triEnergies = document.getElementById('triangleEnergies');
+  const allTri = [energies.topEnergy, energies.bottomLeftEnergy, energies.bottomRightEnergy, energies.midLeftEnergy, energies.midRightEnergy, energies.bottomCenterEnergy];
+  triEnergies.textContent = allTri.join(', ');
+  
+  const arcanaDescriptions = {
+  1: "Major Arcana (The Magician)  Professions That Can Bring You Abundant Income: Online activities and public speaking. Natural leaders, managers, PR specialists, and travel agency workers—roles involving movement and communication are ideal for you. Excellent business coaches and idea generators. What Holds You Back Financially: Living from a place of 'have to' rather than 'want to.' Lack of belief in your own strength and potential. Laziness as a result of prolonged overwork and burnout. Spendings That Increase Financial Flow: Investments in your state of relaxation and letting go of control—spiritual practices. The more money you invest in your peace of mind, the less anxiety you will carry internally, and the more financial abundance will flow to you.",
+  
+  2: "Major Arcana (The High Priestess)  Professions That Can Bring You Abundant Income: Fields involving women and children (e.g., early childhood educator, nanny, pediatrician, midwife, nurse). Careers centered around communication (e.g., diplomat, consultant, politician, journalist). Healing and intuitive professions (e.g., psychologist, spiritual guide, energy healer, doctor, holistic nutritionist). Nature- and animal-based work (e.g., environmentalist, florist, veterinarian). Creative paths (e.g., interior designer, artist, musician, dancer, singer). What Holds You Back Financially: Careers or roles that demand quick decision-making under pressure. Work environments filled with stress and burnout. Behaviours such as insincerity, gossip, resentment, and hostility toward others. Unresolved conflicts or strained relationships with your mother or important women in your life. Difficulty accepting or embracing feminine energy. Spendings That Increase Financial Flow: If you are a man, invest in men's spiritual practices. If you are a woman, invest in women's spiritual practices. The more you attend gong meditations, chakra work, retreats, and women's circles, and invest financially in these practices, the more your energy will rise — and with it, your financial abundance.",
+  
+  3: "Major Arcana (The Empress)  Professions That Can Bring You Abundant Income: Fields related to the beauty industry, women and children, luxury, medicine, psychology, self-care, spas, art, creativity, and design. Areas where things are tasty, beautiful, safe, and healing—whether it's people or the atmosphere. Places that allow inner potential to be expressed and release to happen: plastic surgery, nanny or nurse work, teaching, creating masterclasses, conducting trainings. Blogging, media work, event agencies, and luxury real estate. Partnerships with women. What Holds You Back Financially: The mindset of 'doing everything yourself,' rejecting help or the possibility of passive income. Reluctance to embrace femininity and beauty; complete rejection of your body; unwillingness to adorn yourself or care for your appearance. Using men solely for financial gain if you have no genuine interest in the man himself. Obsession with money, ignoring other blessings in life. Being controlling, harsh, and unable to negotiate. Spendings That Increase Financial Flow: Invest in your creativity and hobbies—such as painting, sculpting, public speaking, singing, or music. Engage in whatever you love. You should always have hobbies and remain creative. Also, invest in your children and mother: the more gifts and support you give to your mother and children, the greater your financial potential will grow.",
+  
+  4: "Major Arcana  (The Emperor)  Professions That Can Bring You Significant Income: Leadership and management positions. Work involving men—such as husband, boyfriend, brother, or others—with a focus on uniting into your own business or, if working within a system, being part of a predominantly male team. Professions involving physical labor: sports, agriculture, anything related to the land or construction (e.g., locksmith, stonemason, carpenter). Roles where cultivation, growth, and systematization are central. Fields related to order and structure: government agencies, politics, police, military. What Holds You Back Financially: Being stuck in a subordinate role without the ability to make decisions or lead others, forced only to follow orders, especially when you disagree with them. Abuse of power—being harsh, despotic, pushing people to their limits while showing no respect for their work or ability to collaborate. Trying to pursue a business that isn't in demand, investing time and effort into ideas that don't meet societal needs or are outdated. Poor relationship with your father that requires healing work. Spendings That Increase Financial Flow: Long-term investments that will bear fruit in 2–5 years. You can invest in real estate, sports, or physical activity. The more sport and physical activity in your life, the more money will come your way. Take care of your health—both physical and internal—because treating your body with care will directly increase your financial potential.",
+  
+  5: "Major Arcana (The Hierophant)  Professions That Can Bring You Significant Income: Anything related to order, money management, and accounting: bookkeeping, economics, finance, mathematics, numerology. Positions such as bailiffs, notaries, commercial directors, consultants, business coaches and trainers, spiritual teachers and mentors, public speakers, lecturers, and educators. Politics and consulting services. What Holds You Back Financially: Chaos in your affairs and life caused by unresolved issues with documents, unfinished tasks, or lingering doubts. Being preachy—telling everyone how and whom to live, intellectual pride. Aggressively defending only your point of view, which you believe is right. Refusing to acknowledge other teachers or differing perspectives. Setting unrealistically high expectations for others and feeling hurt when they don't meet them. Holding back your knowledge. Spendings That Increase Financial Flow: Investing in travel and continuous learning, exploring new and interesting topics. Don't hesitate to spend on high-quality courses, and carefully choose your teachers, mentors, and guides.",
+  
+  6: "Major Arcana  (The Lovers)  Professions That Bring Significant Income: Careers related to aesthetics, creativity, and love: photographers, designers, models, artists, jewelers, florists, plastic surgeons, cosmetologists, makeup artists, writers, dancers, producers, psychologists, sexologists, and similar. Sales managers with strong selling skills. What Holds You Back Financially: The desire to only have fun without putting in the necessary work; forgetting that tangible effort is required, not just thinking about things. Experiencing work as a burdensome obligation rather than an enjoyable pursuit. Rejecting collaboration and trying to handle everything alone. Holding onto resentment toward parents, others, or yourself. Idealizing others and constantly comparing yourself to them, doubting your own value, and undervaluing your achievements. Judging yourself and others by appearances or social status instead of by actions and character. Spendings That Increase Financial Flow: Invest in your appearance. Choose high-quality, branded clothing made from premium fabrics. Don't skimp on skincare, haircare, and overall self-care. Maintaining an impeccable appearance generates energy that naturally attracts greater financial abundance.",
+  
+  7: "Major Arcana (The Chariot)  Professions That Bring Significant Income: All work related to movement: travel agencies, automotive and transport services, logistics, business trips, frequent travel, freight transport, flight attendants, taxi drivers. All types of sports, including coaching and training. Law, politics, judicial system, traffic police, criminology, bodyguards, esoteric practices, customs work. Online activities. Leadership and managerial positions. What Holds You Back Financially: Lack of movement and clear goals. Saving money by avoiding trips or travel, unwillingness to go out, preferring to stay home constantly. Trying to do everything alone, rejecting teamwork. Hustling with many small tasks without a clear purpose, leading to burnout and no tangible results. Charging toward goals aggressively with a combative attitude, ignoring human principles and morals. Passivity and laziness, usually resulting from past failed attempts causing procrastination and mental blocks against new efforts. Spendings That Increase Financial Flow: Hiring financial advisors and assistants to help you stay disciplined, develop time management skills, and allocate your income wisely. Investing in sports and physical activities, as connection with the body supports increased income. Regular exercise contributes to financial growth.",
+  
+  8: "Major Arcana (Justice) Professions That Bring High Income: Jurisprudence (roles where justice is served: judges, lawyers, executive authorities). Human rights protection. Tax authorities. Journalism. Politics. Historians. Work related to karma: psychologists, numerologists, esoteric practitioners. Building your own large business and extensive systems. What Holds You Back Financially: Illegal activities, unofficial work, tax evasion, fraud, irresponsibility in business. Lack of understanding of cause-and-effect relationships. Over-responsibility in your affairs — when you overload yourself, try to understand which emotion you are trying to suppress. Fixation on fairness towards yourself, constant expectations from others. Spendings That Increase Financial Flow: Invest money to make money — put your funds into projects that generate income, especially those promising quick returns.",
+  
+  9: "Major Arcana (The Hermit) Professions That Can Bring You Significant Income: Wisdom and spirituality-related fields: scientists, doctors, healers, spiritual figures, strong psychologists, philosophers, chemists, physicists, biologists, writers, musicians, teachers, translators. Logical thinking and analytical skills: mathematicians, programmers, researchers, and inventors. Work that requires solitude and freedom from pressure. What Holds You Back Financially: Doubts about your professionalism or, conversely, extremes where you consider yourself the smartest and everyone else less capable. Working in a large team or public-facing roles where you are constantly observed or must report to others. Reluctance or inability to share with others what you do or what interests you. Mental and task-related chaos. Either skimping on yourself or, on the other extreme, compulsive shopping. Complete rejection of spirituality in favor of materialism, or complete rejection of materialism in favor of spirituality. Spendings That Increase Financial Flow: Charity and helping others, good deeds. The more you donate and contribute to charity, the better your financial situation becomes."
+};
+
+  const count = {};
+allTri.forEach(e => count[e] = (count[e] || 0) + 1);
+let descHtml = "";
+const shown = new Set();
+allTri.forEach(e => {
+  if (!shown.has(e)) {
+    shown.add(e);
+    const mult = count[e] > 1 ? ` (x${count[e]})` : "";
+    
+    let description = arcanaDescriptions[e] || '';
+    // Format the description with bold headings and paragraphs
+    description = description
+  .replace(/Professions That (Can Bring You |Bring )(Abundant|Significant|High) Income:/g, '<p><strong>Professions That $1$2 Income:</strong></p><p>')
+  .replace(/What Holds You Back Financially:/g, '</p><p><strong>What Holds You Back Financially:</strong></p><p>')
+  .replace(/Spendings That Increase Financial Flow:/g, '</p><p><strong>Spendings That Increase Financial Flow:</strong></p><p>');
+
+          
+    descHtml += `<div style="margin-bottom: 30px;"><p><span class="apricot">${e}${mult}</span> — ${description}</p></div>`;
+  }
+});
+document.getElementById("triangleDescriptions").innerHTML = descHtml;
+
+  
+  const triangleCodes = allTri; // Use all calculated triangle energies for the table
+  
+  const data = {
+    1: ["Leader / Pioneer", "Manager / Leader", "Reluctance to delegate, ego", "Entrepreneur", "Entrepreneurs, leaders"],
+    2: ["Speaker / Mediator", "Smooth negotiator", "Gossip, fear of speaking", "Honesty", "Public speaker, host"],
+    3: ["Actor / Creativity", "Artistic management", "Materialism", "Beauty, creativity", "Work with women"],
+    4: ["Hardworker", "Decisive, adaptive", "Laziness, fast profit", "Stability", "Construction, business"],
+    5: ["Scientist / Teacher", "Analytical, predictive", "Scattering, pride", "Learning, change", "Teacher, numerologist"],
+    6: ["Aesthetic Artist", "Persuasion, craft", "Body shame", "Love, art", "Model, designer"],
+    7: ["Warrior / Intuitive", "Intuition, honesty", "Restrictions", "Movement, travel", "Politics, spirituality"],
+    8: ["Entrepreneur", "Systems thinker", "Debt, greed", "Trust, scale", "Business owner"],
+    9: ["Healer / Sage", "Seer, signs", "Loneliness", "Spirituality", "Healer, esoteric"]
+  };
+  
+  const table = `
+    <table>
+      <tr>
+        <th>Your Energy</th>
+        <th>Who Am I</th>
+        <th>My Hidden Talents</th>
+        <th>Blocks & Limitations</th>
+        <th>Energy Of</th>
+        <th>Life Purpose</th>
+      </tr>
+      ${triangleCodes.map(e => `
+        <tr>
+          <td class="apricot">${e}</td>
+          <td>${data[e]?.[0] || ''}</td>
+          <td>${data[e]?.[1] || ''}</td>
+          <td>${data[e]?.[2] || ''}</td>
+          <td>${data[e]?.[3] || ''}</td>
+          <td>${data[e]?.[4] || ''}</td>
+        </tr>`).join('')}
+    </table>
+  `;
+  document.getElementById('energyTable').innerHTML = table;
+}
+
+document.getElementById('saveBtn').addEventListener('click', () => {
+  const dob = document.getElementById('dob').value;
+  if (!dob) {
+    alert("Please calculate first.");
+    return;
+  }
+  
+  const energies = calculateEnergies(dob);
+  const textContent = `Personal Code of Success: ${energies.energy1}, ${energies.energy2}, ${energies.energy3}, ${energies.energy4}, ${energies.energy5}\nMoney Triangle Energies: ${energies.topEnergy}, ${energies.bottomLeftEnergy}, ${energies.bottomRightEnergy}, ${energies.midLeftEnergy}, ${energies.midRightEnergy}, ${energies.bottomCenterEnergy}`;
+  
+  const blob = new Blob([textContent], {type: 'text/plain'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `Numerology_Codes_${dob}.txt`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+// Hide content initially and check license
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('section1').style.display = 'none';
+  checkLicenseKey();
+});
+
+</script>
+</body>
+</html>
+
+
+
