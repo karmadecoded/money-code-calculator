@@ -333,7 +333,7 @@
 <body>
 <div class="section" id="section1">
   <div class="initial-view">
-    <h2>Your prosperity code</h2>
+    <h2>Your Wealth Code</h2>
     <h5> Enter Your Date of Birth</h5>
     <input type="date" id="dob" min="1900-01-01" max="2100-12-31" />
 
@@ -366,7 +366,8 @@
 
 <div class="section hidden" id="section3">
   <h2>Your Money Triangle</h2>
-  <p>This Money Triangle reveals the hidden financial energies that influence your material world. It shows how your yearly money energy connects with relationships, discipline, and spending tendencies. Each point represents an energetic aspect influencing your financial decisions.</p>
+  <p>This Money Triangle reveals the hidden financial energies that influence your material world. Each point represents an energetic aspect that influences your financial decisions. It reveals where your material well-being and financial abundance are hidden. Within it, you’ll discover what fuels—and what blocks—your flow of prosperity. By connecting all six energies together, you will discover your ideal sphere— where you can make a quantum leap and reach a new level of income.
+</p>
   
     <div id="triangleEnergies" class="energy-box apricot"></div>
   
@@ -376,9 +377,9 @@
       <title>Money Triangle</title>
       <polygon points="50,0 100,100 0,100" />
       <!-- Inner upside-down triangle - just lines connecting middle positions -->
-      <line x1="25" y1="50" x2="75" y2="50" stroke="#511C62" stroke-width="1"/>
-      <line x1="25" y1="50" x2="50" y2="85" stroke="#511C62" stroke-width="1"/>
-      <line x1="75" y1="50" x2="50" y2="85" stroke="#511C62" stroke-width="1"/>
+      <line x1="25" y1="50" x2="75" y2="50" stroke="white" stroke-width="1"/>
+      <line x1="25" y1="50" x2="50" y2="85" stroke="white" stroke-width="1"/>
+      <line x1="75" y1="50" x2="50" y2="85" stroke="white" stroke-width="1"/>
     </svg>
     
     <!-- Triangle Energy Labels -->
@@ -397,9 +398,28 @@
 <div class="section hidden" id="section4">
   <h2>Your Energies Decoded</h2>
   <div id="energyTable"></div>
-  <br>
-  <button class="save-btn" id="saveBtn">Save</button>
+  
+  </div>
+
+<div class="section hidden" id="section5">
+  <h2>What are your limiting beliefs about money?</h2>
+   <div id="limitingBeliefsContent"></div>
 </div>
+
+<div class="section hidden" id="section6">
+  <h2>Ways to Boost Your Earnings</h2>
+  <div id="earningsContent"></div>
+</div>
+
+<div class="section hidden" id="section7">
+  <h2>Money Flow Rituals</h2>
+  <div id="ritualsContent"></div>
+</div>
+
+<div class="section hidden" id="section8">
+  <div id="roadmapContent"></div>
+</div>
+
 
 <div class="footer">
   © 2025 Karma_Decoded | Maria Fistican.  All rights reserved.
@@ -485,6 +505,10 @@ localStorage.setItem('karmaDecodedUses', useCount.toString());
   document.getElementById('section2').classList.remove('hidden');
   document.getElementById('section3').classList.remove('hidden');
   document.getElementById('section4').classList.remove('hidden');
+  document.getElementById('section5').classList.remove('hidden');
+  document.getElementById('section6').classList.remove('hidden');
+  document.getElementById('section7').classList.remove('hidden');
+
   
   // Update the initial view to be less prominent
   document.querySelector('.initial-view').style.minHeight = 'auto';
@@ -587,6 +611,299 @@ allTri.forEach(e => {
   }
 });
 document.getElementById("triangleDescriptions").innerHTML = descHtml;
+// Limiting Beliefs Content
+const limitingBeliefs = {
+  1: {
+    title: " 1: The Leader",
+    coreBeliefs: '"Making money requires struggle and constant effort."\n"If I\'m not first, I don\'t matter."\n"I have to do everything on my own."\n"Asking for help means I\'m weak."\n→ This energy often manifests through pressure, competition, and eventual burnout.',
+    overcome: 'Pursue entrepreneurship.\nStep away from overly dependent partnerships.\nEmbrace independence and learn to stand strong on your own.'
+  },
+  2: {
+    title: " 2: The Partner",
+    coreBeliefs: '"Money comes through others, not from me."\n"A woman shouldn\'t earn more than a man."\n"If I shine too brightly, I\'ll be rejected."\n"Being wealthy means being inconvenient."\n→ Subconsciously limits income to remain needed and accepted by others.',
+    overcome: 'Be honest with yourself and others — especially about your needs.\nDevelop strong communication and speaking skills.\nWork with themes of beauty, nurturing, and feminine energy.'
+  },
+  3: {
+    title: " 3: The Artist",
+    coreBeliefs: '"Money favors those who are attractive, fun, and easy to please."\n"To make money, I need to be liked."\n"If I show my true self, no one will buy it."\n"Presentation comes first, value comes second."\n→ Gets stuck in surface-level appeal, fears emotional depth and rejection.',
+    overcome: 'Focus on building real stability.\nGround your ideas in practical action.\nPrioritize long-term value over just looking good on the surface.'
+  },
+  4: {
+    title: " 4: The Builder",
+    coreBeliefs: '"Stability is more important than dreams."\n"It\'s better to earn a little, but have guarantees."\n"Taking risks is dangerous — I could lose everything."\n"Work hard, expect little."\n→ Holds themselves back in a comfort zone, afraid to scale or expand.',
+    overcome: 'Stay physically active — sports and movement support your growth.\nTurn your discipline into something real and lasting.\nCreate a solid foundation that supports sustainable success.'
+  },
+  5: {
+    title: " 5: The Seeker",
+    coreBeliefs: '"Money equals loss of freedom."\n"If I earn more, I\'ll have to take on responsibility."\n"Being wealthy is boring."\n"Money corrupts people."\n→ Leaks income through chaos, impulsiveness, and avoidance.',
+    overcome: 'Invest in learning, travel, and fresh experiences.\nSurround yourself with people who inspire you to grow.\nStay curious and open to new environments.'
+  },
+  6: {
+    title: " 6: The Rescuer",
+    coreBeliefs: '"Others come first — I come second."\n"Charging money for help is shameful."\n"Wealthy people are selfish."\n"It\'s better to give than to feel guilty."\n→ Blocks abundance to preserve a sense of goodness and self-worth.',
+    overcome: 'Welcome love, intimacy, and pleasure into your life.\nLet yourself receive, not just give.\nConsider travel or even long-term relocation for a fresh start.'
+  },
+  7: {
+    title: " 7: The Sage",
+    coreBeliefs: '"Money is low, materialistic, and meaningless."\n"True value isn\'t measured in money."\n"If I become grounded, I\'ll lose my depth."\n"I should be discovered and appreciated — I\'m not meant to sell."\n→ Escapes into the spiritual, avoiding structure and visibility.',
+    overcome: 'Set clear boundaries.\nKeep your body moving — walking, running, anything that activates you.\nPractice delegation and build structures to support your ideas.'
+  },
+  8: {
+    title: " 8: The Powerhouse",
+    coreBeliefs: '"If I\'m not in control, the money will disappear."\n"Success always comes through struggle."\n"If people see my weakness, everything will fall apart."\n"I have to earn love and self-worth."\n→ Earns a lot but can\'t relax; loses money through over-control.',
+    overcome: 'Practice generosity and learn to trust the process.\nSpend with joy — allow yourself to enjoy what you\'ve earned.\nSoften control and make space for flow.'
+  },
+  9: {
+    title: " 9: The Servant",
+    coreBeliefs: '"Money doesn\'t matter — my mission does."\n"The more I give, the more spiritual I become."\n"Making money is selfish."\n"I\'m here to save, not to sell."\n→ Overgives while neglecting their own needs, fears being \'bad\' for wanting money.',
+    overcome: 'Deepen your spiritual connection.\nOwn your voice and let yourself be seen.\nCelebrate your accomplishments — they are meaningful and deserved.'
+  }
+};
+
+// Generate limiting beliefs content based on triangle energies
+const triangleEnergiesForBeliefs = [energies.topEnergy, energies.bottomLeftEnergy, energies.bottomRightEnergy, energies.midLeftEnergy, energies.midRightEnergy, energies.bottomCenterEnergy];
+const beliefCount = {};
+triangleEnergiesForBeliefs.forEach(e => beliefCount[e] = (beliefCount[e] || 0) + 1);
+
+let beliefsHtml = "";
+const beliefShown = new Set();
+triangleEnergiesForBeliefs.forEach(energy => {
+  if (!beliefShown.has(energy)) {
+    beliefShown.add(energy);
+    const belief = limitingBeliefs[energy];
+    if (belief) {
+      const mult = beliefCount[energy] > 1 ? ` (x${beliefCount[energy]})` : "";
+      beliefsHtml += `
+        <div style="margin-bottom: 40px; padding: 20px; background: white; border-radius: 10px; border: 2px solid #511C62;">
+          <h3 class="apricot" style="color: #511C62; margin-bottom: 15px;">${belief.title}${mult}</h3>
+          <p><strong>Core Beliefs:</strong></p>
+          <p style="margin-left: 20px; white-space: pre-line;">${belief.coreBeliefs}</p>
+          <p><strong>How to overcome?</strong></p>
+          <p style="margin-left: 20px; white-space: pre-line;">${belief.overcome}</p>
+        </div>
+      `;
+    }
+  }
+});
+
+document.getElementById('limitingBeliefsContent').innerHTML = beliefsHtml;
+
+// Ways to Boost Your Earnings Content
+const earningsStrategies = {
+  1: {
+    title: "1 — The Initiator",
+    moneyFlows: "Initiative, scale, independence.\nProjects, ambitious goals, competition.",
+    howToEarn: "Build your personal brand, lead the way, take risks.\nTake charge, manage, delegate.\nSell the outcome, not the process."
+  },
+  2: {
+    title: "2 — The Partner", 
+    moneyFlows: "Relationships, teamwork, communication.",
+    howToEarn: "Create strong partnerships (the second person amplifies you).\nMonetize care, active listening, and support.\nSell through sincerity and loyalty."
+  },
+  3: {
+    title: "3 — The Creator",
+    moneyFlows: "Creativity, joy, performance, expression.",
+    howToEarn: "Be visible: videos, blogging, presentations.\nCreate products that spark joy.\nSell the feeling, the vibe — not just the service."
+  },
+  4: {
+    title: "4 — The Master",
+    moneyFlows: "Reliability, quality, stability.",
+    howToEarn: "Build a platform, school, or signature method.\nFocus on results → reputation → high-ticket pricing.\nAutomate and scale your system."
+  },
+  5: {
+    title: "5 — The Marketer",
+    moneyFlows: "Freedom, movement, sales\nExcitement, spontaneity, action.",
+    howToEarn: "Sell brightly, spontaneously, with impulse\nWork with launches and unconventional projects.\nCreate \"new arrivals\" and test quickly."
+  },
+  6: {
+    title: "6 — The Nurturer",
+    moneyFlows: "Care, aesthetics, helpfulness\nFeminine values, harmony, trust.",
+    howToEarn: "Make things beautiful and heartfelt: packaging, visuals, atmosphere.\nCreate products with care (courses, services, experiences)\nSell as \"self-care\" rather than a necessity."
+  },
+  7: {
+    title: "7 — The Thinker",
+    moneyFlows: "Silence, unique knowledge, spirituality",
+    howToEarn: "Package your wisdom into a course, book, or diagnostic.\nWork deeply, precisely, with high-ticket offerings.\nSell meaning, transformation — not just the format."
+  },
+  8: {
+    title: "8 — The Power",
+    moneyFlows: "Leadership, scale, investment",
+    howToEarn: "Build income systems (businesses, franchises)\nDon't fear influence and responsibility.\nWork with money, assets, and a strong team."
+  },
+  9: {
+    title: "9 — The Healer",
+    moneyFlows: "Compassion, spiritual service, inner light",
+    howToEarn: "Share your experience — through sessions, retreats, courses.\nContribute to the world and charge accordingly.\nSell the journey, transformation, and result — not just \"help\""
+  }
+};
+
+// Generate earnings content based on triangle energies
+const triangleEnergiesForEarnings = [energies.topEnergy, energies.bottomLeftEnergy, energies.bottomRightEnergy, energies.midLeftEnergy, energies.midRightEnergy, energies.bottomCenterEnergy];
+const earningsCount = {};
+triangleEnergiesForEarnings.forEach(e => earningsCount[e] = (earningsCount[e] || 0) + 1);
+
+let earningsHtml = "";
+const earningsShown = new Set();
+triangleEnergiesForEarnings.forEach(energy => {
+  if (!earningsShown.has(energy)) {
+    earningsShown.add(energy);
+    const strategy = earningsStrategies[energy];
+    if (strategy) {
+      const mult = earningsCount[energy] > 1 ? ` (x${earningsCount[energy]})` : "";
+      earningsHtml += `
+        <div style="margin-bottom: 30px;">
+          <h3 class="apricot" style="color: #511C62; margin-bottom: 15px;">${strategy.title}${mult}</h3>
+          <p><strong>Money flows through:</strong></p>
+          <p style="margin-left: 20px; white-space: pre-line; margin-bottom: 15px;">${strategy.moneyFlows}</p>
+          <p><strong>How to Earn More:</strong></p>
+          <p style="margin-left: 20px; white-space: pre-line;">${strategy.howToEarn}</p>
+        </div>
+      `;
+    }
+  }
+});
+
+document.getElementById('earningsContent').innerHTML = earningsHtml;
+
+// Money Flow Rituals Content
+const moneyFlowRituals = {
+  1: {
+    title: "1 — Ritual of Action & Leadership",
+    blocks: "Waiting for the perfect moment.\nFear of \"starting wrong\" or \"not being ready.\"\nNeeding approval before taking the first step.\nDoubting whether you have the \"right\" to go first.",
+    expands: "Initiative: launching a project, idea, or service\nVisibility: showing up in stories, writing a post, offering a product.\nCourage: taking the first step, even if it's scary or imperfect.",
+    ritual: "Write the phrase: \"Today I choose…\" — and complete it with a clear intention.\nThen take 1 real action toward something you've been putting off:\n• Post a story.\n• Write an offer.\n• Pitch your service.\n• Start recording your course.\n• Send an email.\n• Buy a domain for your website.",
+    questions: "What have I long wanted to start, but keep delaying? Why?\nIf I didn't need anyone's permission — what would I do today?\nWhat am I afraid to lose by starting? And what am I already losing by not starting?"
+  },
+  2: {
+    title: "2 — Ritual of Asking & Receiving",
+    blocks: "The belief that \"asking means weakness\"\nFear of rejection or judgment.\nHabit of always being the one who \"manages on her own.\"\nShame about needing, depending, or not being perfect.\nBeing stuck in a constant \"giver\" mode.",
+    expands: "The ability to ask clearly and specifically.\nPermission to need and receive.\nOpenness to support, resources, recommendations\nTaking the \"child\" role — not out of weakness, but trust.",
+    ritual: "Ask three different people for something specific. It could be:\n• Help with a task\n• Professional feedback.\n• A recommendation.\n• Payment for your work.\n• Advice.\n• A collaboration opportunity.\n\nImportant: Don't apologize, minimize, or complicate the request. Be direct and clear: \"This is important to me… Can you help?\"",
+    questions: "What stops me from asking? Where does that come from?\nIn what situations do I support everyone, but never ask myself?\nHow do I feel when someone responds willingly to my request?\nWhere in my life can I allow more support?"
+  },
+  3: {
+    title: "3 — Ritual of Visibility & Brightness",
+    blocks: "Low self-esteem rooted in childhood criticism.\nShame around being \"too much\" or in the spotlight.\nComparing yourself to the \"more successful\" and \"confident.\"\nHabit of filtering yourself: \"This isn't important,\" \"Who cares?\"\nFear of being mocked, \"overdoing it,\" or not matching your image",
+    expands: "Honest and expressive communication — both personally and publicly.\nAesthetic visuals and presentation.\nConfidence in showing up (not \"selling yourself,\" but being yourself).\nSharing your thoughts, experiences, and emotions\nPlayfulness, humor, and ease in self-expression",
+    ritual: "Record a short video or Reel where you speak about yourself — not as a role (mom, expert, professional), but as a real person. Speak simply and honestly.\n\nYou can start with:\n• \"Today I want to remind myself and the world that…\"\n• \"I'm the kind of person who…\"\n• \"It's important for me to talk about… because it's part of me.\"\n\nThe goal is not to impress — but to be seen as yourself.",
+    questions: "What do I most often hide about myself — and why?\nWhen was the last time I spoke from the heart, not from a role?\nIf I wasn't afraid of standing out, how would I show up today?\nWhat personal story could inspire others if I shared it?"
+  },
+  4: {
+    title: "4 — Ritual of Structure & Stability",
+    blocks: "Fear of stepping outside your comfort zone and losing control.\nHyper-control — when the plan matters more than real life.\nStruggles with flexibility and delegating.\nUnderestimating creativity, intuition, spontaneity.\nHabit of following outdated rules just because they're \"the rules.\"",
+    expands: "Clear planning, realistic goals.\nFinancial awareness: tracking, analyzing, allocating resources\nStable workflows and consistency.\nAccountability without self-punishment.\nSimple, clear steps instead of chaotic bursts.",
+    ritual: "Create a simple table: \"Inflow — Outflow — Goal\" for the next 7 days.\nList all income (even small ones), expenses (no guilt), and your desired financial goal — either an amount or a feeling. Make it personally meaningful.\n\nYou can also organize your week using:\n• Important / urgent tasks\n• Daily action items\n• Micro-steps for each day",
+    questions: "Where in my life is there chaos — and what can I simplify?\nWhat am I avoiding counting, managing, or acknowledging?\nWhich stable practices truly support me, and which feel like control?\nWhat gives me a sense of security — not externally, but internally?"
+  },
+  5: {
+    title: "5 — Ritual of Freedom, Movement, Inspiration.",
+    blocks: "Rigid obligations with no meaning.\nA life stuck in routine. (\"Groundhog Day\")\nFear of disappointing others by choosing yourself.\nSuppressed feeling of \"I want\"\nPerfectionism in freedom: \"If it's not perfect, I won't do it.\"",
+    expands: "Novelty: impressions, new people, experiences\nEase in decision-making\nSpontaneous actions, stepping out of routine.\nPlayfulness, experimentation, trying new things.\nInspiration tied to personal interests.",
+    ritual: "Do at least one thing today that you've long wanted but kept putting off or forbade yourself. Examples:\n• A purposeless walk\n• Disconnecting from social media\n• A sudden trip\n• A bold change in style, creativity, or communication\n• Saying \"no\" — from a place of freedom, not fear\n\nImportant: You don't have to be spontaneous — you're allowed to. Even a small act of self-choice brings a sense of inner aliveness.",
+    questions: "Where am I acting out of habit instead of true interest?\nWhat would I do if I didn't have to prove anything to anyone?\nHow do I punish myself for being spontaneous?\nWhat inspires me without the pressure of \"should\"?"
+  },
+  6: {
+    title: "6 — Ritual of Self-Care",
+    blocks: "Dependence on external approval.\nThe need to \"be good\" at the cost of your own needs.\nGuilt for rest, pleasure, or investing in yourself.\nBurnout from constant care for others.\nSubconscious belief: \"I am only valuable when I'm needed.\"",
+    expands: "Self-care as a reflection of self-worth\nAesthetics in daily life, clothing, and space\nTrusting, warm relationships\nCalm, nurturing energy (not sacrifice — resourceful care)\nAcknowledging the right to joy and pleasure",
+    ritual: "Do something beautiful, warm, and just for yourself. Examples:\n• A joyful purchase\n• Guilt-free alone time\n• Journaling or a heart-to-heart with your reflection\n• Eating a meal slowly and with delight\n• A massage or skincare ritual\n\nSay to yourself a phrase you often say to others:\n\"You deserve peace, beauty, and care\" — and direct it inward.",
+    questions: "What do I give to others that I deny myself?\nWhere has care become an obligation instead of a joy?\nWhat kind of woman do I want to become — for myself, not for others' approval?\nWhat can I do to help my inner child feel safe and loved?"
+  },
+  7: {
+    title: "7 — Ritual of Presence, Inner Depth, and Self-Anchoring",
+    blocks: "Living \"in your head\": overthinking without action.\nEmotional withdrawal and isolation.\nConstant analysis and self-criticism.\nIgnoring the body and its signals.\nTrying to find the \"perfect\" answer before moving forward.",
+    expands: "Grounding and awareness of bodily sensations.\nWalking, breathing, water rituals\nThe ability to pause and ask: \"What do I really feel?\"\nRespect for your boundaries and emotions.",
+    ritual: "Do a body-centered practice that grounds you. For example:\n• Walk barefoot or take a walk alone.\n• Soak in a salt bath.\n• Belly breathing (slow and downward).\n• Gentle self-touch with full acceptance.\n\nSay aloud and calmly:\n\"I allow money (and life) to support my wisdom and presence.\"",
+    questions: "Where is there too much thinking and too little sensing in my life?\nWhat does my body tell me when I stop listening to it?\nWhat happens when I simply allow myself to be?\nWhat is my true way to slow down and feel?"
+  },
+  8: {
+    title: "8 — Ritual of Power, Decisions, and Influence",
+    blocks: "Fear of being \"too much\" — too assertive, confident, or expensive.\nFear of conflict or criticism when showing strength.\nSubconscious belief: \"Money = aggression or dishonesty.\"\nUnspoken worth: \"It feels awkward to ask for this much.\"\nBurnout from trying to control everything.",
+    expands: "Financial decisions made from inner confidence.\nOwning the value of your work.\nTaking a clear stance in communication and business.\nActions that say: \"I lead, I'm not dependent.\"\nScaling up not through chaos, but through clear ambition.",
+    ritual: "Make one bold decision you've been putting off, such as:\n• Raising your prices.\n• Launching a new product or service.\n• Making a clear offer without downplaying it.\n• Reaching a new audience.\n• Letting go of something draining (even if it brings income).\n\nStand in a power pose: tall, open posture — calm yet strong. Say:\n\"I deserve significant money and respect for my strength and contribution.\"",
+    questions: "Where do I lower my value for comfort or loyalty?\nWhat part of me is afraid to be strong, expensive, influential?\nWhat decisions am I postponing because I'm not ready to be seen?\nHow would a woman act who knows she is her own foundation?"
+  },
+  9: {
+    title: "9 — Ritual of Completion, Transformation, and Meaning",
+    blocks: "Being stuck in unfinished relationships, emotions, or tasks.\nAttachment to victimhood or past success.\nStruggling to admit: \"This chapter is over.\"\nPerfectionism in giving: \"I'm not ready to share yet\"\nRejecting your mission out of fear of being unheard.",
+    expands: "Conscious closure of past stages and stories.\nWillingness to let go of what no longer feeds you\nSharing knowledge, experience, support\nFinding meaning in all life experiences — even painful ones.\nTurning pain into strength and value for others",
+    ritual: "Write two letters:\n\n1. A letter of letting go: \"Who or what do I want to release — and why is this no longer mine?\" Burn or tear it to symbolize closure.\n\n2. A letter of service: \"How can I serve the world through what I've lived through?\" This can be something you publish — or keep for yourself.\n\nThis is not about being a victim. It's about a meaningful contribution. Meaning creates flow.",
+    questions: "What am I holding onto, even though I know it's run its course?\nWhat past experience could become a resource rather than a burden?\nWhat am I afraid of if I let go of the old?\nHow can I serve others — not from sacrifice, but from maturity?"
+  }
+};
+
+// Generate rituals content based on triangle energies
+const triangleEnergiesForRituals = [energies.topEnergy, energies.bottomLeftEnergy, energies.bottomRightEnergy, energies.midLeftEnergy, energies.midRightEnergy, energies.bottomCenterEnergy];
+const ritualsCount = {};
+triangleEnergiesForRituals.forEach(e => ritualsCount[e] = (ritualsCount[e] || 0) + 1);
+
+let ritualsHtml = "";
+const ritualsShown = new Set();
+triangleEnergiesForRituals.forEach(energy => {
+  if (!ritualsShown.has(energy)) {
+    ritualsShown.add(energy);
+    const ritual = moneyFlowRituals[energy];
+    if (ritual) {
+      const mult = ritualsCount[energy] > 1 ? ` (x${ritualsCount[energy]})` : "";
+     ritualsHtml += `
+  <div style="margin-bottom: 40px; background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,182,193,0.1)); padding: 25px; border-radius: 15px;">
+    <h3 class="apricot" style="color: #511C62; margin-bottom: 20px; font-size: 1.3em;">${ritual.title}${mult}</h3>
+    
+    <table style="width: 100%; margin-bottom: 25px; border-collapse: collapse; background: rgba(255,255,255,0.7); border-radius: 10px; overflow: hidden;">
+      <tr style="background: #511C62; color: white;">
+        <th style="padding: 15px; text-align: left; width: 50%;">What Blocks the Flow</th>
+        <th style="padding: 15px; text-align: left; width: 50%;">What Expands the Flow</th>
+      </tr>
+      <tr>
+        <td style="padding: 15px; vertical-align: top; border-right: 1px solid #ddd; white-space: pre-line;">${ritual.blocks}</td>
+        <td style="padding: 15px; vertical-align: top; white-space: pre-line;">${ritual.expands}</td>
+      </tr>
+    </table>
+    
+    <div style="background: rgba(255,255,255,0.8); padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #511C62;">
+      <h4 style="color: #511C62; margin-bottom: 15px;">Ritual Action:</h4>
+      <p style="white-space: pre-line; line-height: 1.6;">${ritual.ritual}</p>
+    </div>
+    
+    <div style="background: #f9f7f4; padding: 20px; border-radius: 10px; border: 2px dashed #8B4513; position: relative; box-shadow: inset 0 0 10px rgba(139,69,19,0.1);">
+      <h4 style="color: #8B4513; margin-bottom: 15px; font-family: cursive; text-decoration: underline;">Self-Reflection Questions:</h4>
+      <div style="background: repeating-linear-gradient(transparent, transparent 24px, #8B4513 24px, #8B4513 25px); padding: 15px 0;">
+        <p style="font-family: cursive; color: #654321; line-height: 25px; white-space: pre-line; margin: 0; padding: 0 10px;">${ritual.questions}</p>
+      </div>
+  </div>
+`;
+    }
+  }
+});
+
+
+document.getElementById('ritualsContent').innerHTML = ritualsHtml;
+
+
+// Add unlock button to section 7
+const unlockButton = `
+  <div style="text-align: center; margin: 40px 0;">
+    <button onclick="showSection8()" style="
+      background: linear-gradient(135deg, #511C62, #F7EAF9);
+      color: white;
+      border: none;
+      padding: 20px 40px;
+      font-size: 20px;
+      border-radius: 15px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(218,165,32,0.3);
+      transition: all 0.3s ease;
+      font-weight: bold;
+    " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+      🗝️ Unlock Your Roadmap Here
+    </button>
+  </div>
+`;
+
+document.getElementById('ritualsContent').innerHTML += unlockButton;
+
+// Store energies for section 8
+window.storedTriangleEnergies = [energies.topEnergy, energies.bottomLeftEnergy, energies.bottomRightEnergy, energies.midLeftEnergy, energies.midRightEnergy, energies.bottomCenterEnergy];
 
   
   const triangleCodes = allTri; // Use all calculated triangle energies for the table
@@ -627,40 +944,176 @@ document.getElementById("triangleDescriptions").innerHTML = descHtml;
   document.getElementById('energyTable').innerHTML = table;
 }
 
-document.getElementById('saveBtn').addEventListener('click', () => {
-  const dob = document.getElementById('dob').value;
-  if (!dob) {
-    alert("Please calculate first.");
-    return;
-  }
+function showSection8() {
+  // Store current energies for roadmap
+  const triangleEnergies = window.storedTriangleEnergies;
 
-  const energies = calculateEnergies(dob);
+  const roadmapCount = {};
+  triangleEnergies.forEach(e => roadmapCount[e] = (roadmapCount[e] || 0) + 1);
   
-  // Get all the content from the visible sections
+  // Roadmap data
+  const careerPaths = {
+    1: "Entrepreneurs, department heads, managers.",
+    2: "Singers, motivational speakers, psychologists, event hosts.",
+    3: "Working with women — coaching, mentoring, or healing professions.",
+    4: "Sports, construction, real estate, working with men or in male-dominated fields.",
+    5: "Physicists, mathematicians, teachers, accountants, IT specialists, numerologists, and related professions.",
+    6: "Models, artists, poets, fashion designers, architects — all who create beauty and aesthetics.",
+    7: "Politics, government structures, public service, international travel, and spiritual guidance.",
+    8: "Sales professionals, business developers, negotiators — those who influence and lead in commerce.",
+    9: "Esoteric practitioners, healers, doctors — all paths involving healing, energy work, and higher wisdom."
+  };
+
+  const whoYouAre = {
+    1: "THE LEADER - You are a natural pioneer with the drive to initiate and lead. Your energy thrives on independence, innovation, and taking charge of situations.",
+    2: "THE PARTNER - You are a natural collaborator who excels in relationships and teamwork. Your strength lies in cooperation, diplomacy, and creating harmony.",
+    3: "THE CREATOR - You are a natural artist and communicator. Your gift is self-expression, creativity, and inspiring others through your unique voice.",
+    4: "THE SYSTEMIZER - You are a natural organizer who builds solid foundations. Your strength is in creating structure, stability, and reliable systems.",
+    5: "THE MARKETER - You are a natural explorer who thrives on freedom and variety. Your gift is adaptability, communication, and connecting diverse ideas.",
+    6: "THE NURTURING FORCE - You are a natural caregiver who creates beauty and harmony. Your strength lies in healing, supporting, and nurturing others.",
+    7: "THE INTROVERTED SAGE - You are a natural seeker of truth and wisdom. Your gift is deep thinking, analysis, and spiritual understanding.",
+    8: "THE POWERHOUSE - You are a natural executive with strong material instincts. Your strength lies in achievement, authority, and building wealth.",
+    9: "THE HEALER - You are a natural humanitarian with a global perspective. Your gift is compassion, healing, and serving the greater good."
+  };
+
+  const howToFulfill = {
+    1: "Define a clear financial goal. Build your own team. Launch a personal project and position yourself as an expert. Delegate to free up time and resources; strengthen your personal brand. Solidify your status, invest in growth, and build scalable systems.",
+    2: "Heal the fear of being \"alone\" — find your true ally. Start a collaborative project; enhance communication. Monetize through loyalty-based formats like mentorship and guided programs. Increase your pricing by offering trusted, emotionally safe environments.",
+    3: "Find a theme or topic that truly lights you up. Create a product using storytelling and performance. Share your passion through visibility, color, and emotional engagement.",
+    4: "Structure your knowledge into a clear, deliverable format. Launch your first course or service with attention to quality. Automate processes to ensure stable income streams. Scale through a franchise, platform, or signature program.",
+    5: "Gather information, test your audience, and experiment boldly. Launch a quick, low-risk pilot product. Choose what works best — then invest in traffic, packaging, and scaling. Travel, expand your influence, and embrace variety.",
+    6: "Release limiting beliefs like \"I'm not allowed to receive.\" Create an offer that radiates love and genuine value. Share your \"why\" — why helping others matters to you. Offer a premium version: retreat, VIP package, or guided journey.",
+    7: "Go inward to discover your true uniqueness. Develop an expert-level offer: a course, diagnostic tool, or signature system. Work with a select group of aligned clients. Raise your prices, build a deep brand rooted in wisdom. Sell insights — not just formats.",
+    8: "Set ambitious income goals backed by strategy and precision. Hire, sell, invest — create pathways to passive income. Become an investor: in knowledge, people, or scalable systems. Grow your assets and launch with authority.",
+    9: "Clarify your mission and who you're here to serve. Launch a therapeutic offer that is deep and sincere. Collect testimonials and package client breakthroughs. Scale your impact through a course, project, or community. Share transformation — and be open to receive abundance in return."
+  };
+
+  // Generate roadmap content
+  let roadmapHtml = `
+    <div style="
+      background: linear-gradient(45deg, #f4f1e8, #e8dcc0);
+      border: 3px solid #8B4513;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 
+        inset 0 0 20px rgba(139,69,19,0.2),
+        0 10px 30px rgba(0,0,0,0.3);
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      font-family: 'Times New Roman', serif;
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(139,69,19,0.1) 1px, transparent 1px),
+        radial-gradient(circle at 80% 80%, rgba(139,69,19,0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+    ">
+      <div style="position: absolute; top: 10px; left: 10px; width: 30px; height: 30px; border-left: 3px solid #8B4513; border-top: 3px solid #8B4513;"></div>
+      <div style="position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border-right: 3px solid #8B4513; border-top: 3px solid #8B4513;"></div>
+      <div style="position: absolute; bottom: 10px; left: 10px; width: 30px; height: 30px; border-left: 3px solid #8B4513; border-bottom: 3px solid #8B4513;"></div>
+      <div style="position: absolute; bottom: 10px; right: 10px; width: 30px; height: 30px; border-right: 3px solid #8B4513; border-bottom: 3px solid #8B4513;"></div>
+      
+      <div style="text-align: center; margin-bottom: 30px;">
+        <h2 style="color: #8B4513; font-size: 28px; margin-bottom: 20px;">✨ The Key to Rapid Growth is Fulfilling Your Life Purpose ✨</h2>
+        <p style="color: #654321; font-size: 18px; font-style: italic;">Below are aligned directions for each energy vibration to help you activate your true potential:</p>
+      </div>
+      
+      <div style="margin-bottom: 30px;">
+        <h3 style="color: #8B4513; font-size: 22px; margin-bottom: 15px; text-decoration: underline;">Your Career Paths:</h3>
+  `;
+  
+  const roadmapShown = new Set();
+  triangleEnergies.forEach(energy => {
+    if (!roadmapShown.has(energy)) {
+      roadmapShown.add(energy);
+      const mult = roadmapCount[energy] > 1 ? ` (x${roadmapCount[energy]})` : "";
+      roadmapHtml += `<p style="color: #654321; margin: 10px 0; font-size: 16px;"><strong>${energy}.</strong> ${careerPaths[energy]}${mult}</p>`;
+    }
+  });
+  
+  roadmapHtml += `</div>`;
+  
+  roadmapHtml += `<div style="margin-bottom: 30px;">
+    <h3 class="apricot" style="color: #DAA520; font-size: 22px; margin-bottom: 20px; text-decoration: underline;">Who you are?</h3>`;
+  
+  const whoShown = new Set();
+  triangleEnergies.forEach(energy => {
+    if (!whoShown.has(energy)) {
+      whoShown.add(energy);
+      const mult = roadmapCount[energy] > 1 ? ` (x${roadmapCount[energy]})` : "";
+      roadmapHtml += `
+        <div style="background: rgba(218,165,32,0.1); padding: 20px; margin: 15px 0; border-radius: 10px; border-left: 4px solid #DAA520;">
+          <h4 style="color: #8B4513; margin-bottom: 10px;">NUMBER ${energy}${mult}</h4>
+          <p style="color: #654321; line-height: 1.6; margin: 0;">${whoYouAre[energy]}</p>
+        </div>`;
+    }
+  });
+  
+  
+  roadmapHtml += `<div style="margin-bottom: 20px;">
+    <h3 class="apricot" style="color: #DAA520; font-size: 22px; margin-bottom: 20px; text-decoration: underline;">How to fulfill?</h3>`;
+  
+  const fulfillShown = new Set();
+  triangleEnergies.forEach(energy => {
+    if (!fulfillShown.has(energy)) {
+      fulfillShown.add(energy);
+      const mult = roadmapCount[energy] > 1 ? ` (x${roadmapCount[energy]})` : "";
+      roadmapHtml += `
+        <div style="background: rgba(139,69,19,0.1); padding: 20px; margin: 15px 0; border-radius: 10px; border-left: 4px solid #8B4513;">
+          <h4 style="color: #8B4513; margin-bottom: 10px;">NUMBER ${energy} — ${whoYouAre[energy].split(' — ')[0]}${mult}</h4>
+          <p style="color: #654321; line-height: 1.6; margin: 0;">${howToFulfill[energy]}</p>
+        </div>`;
+    }
+  });
+  
+ roadmapHtml += `
+  <div style="text-align: center; margin: 40px 0; padding-top: 30px; border-top: 2px solid #8B4513;">
+    <button onclick="saveCompleteReport()" style="
+      background: linear-gradient(135deg,  #511C62, #F7EAF9);
+      color: white; 
+      border: none; 
+      padding: 20px 40px; 
+      font-size: 18px;
+      border-radius: 15px; 
+      cursor: pointer; 
+      font-weight: bold;
+      box-shadow: 0 8px 20px rgba(46,139,87,0.3);
+      transition: all 0.3s ease;
+    " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+      💾 Save Complete Report
+    </button>
+  </div>
+</div></div>
+`;
+
+
+  
+  document.getElementById('roadmapContent').innerHTML = roadmapHtml;
+  document.getElementById('section8').classList.remove('hidden');
+  document.getElementById('section8').scrollIntoView({ behavior: 'smooth' });
+}
+function saveCompleteReport() {
+  const dob = document.getElementById('dob').value;
   const starDescriptions = document.getElementById('starDescriptions').innerHTML;
   const triangleDescriptions = document.getElementById('triangleDescriptions').innerHTML;
   const energyTable = document.getElementById('energyTable').innerHTML;
+  const roadmapContent = document.getElementById('roadmapContent').innerHTML;
   
-  // Create comprehensive content
-  const fullContent = `
-KARMA DECODED - Your Complete Numerology Report
+  const fullContent = `KARMA DECODED - Your Complete Numerology Report
 Date of Birth: ${dob}
 
 === YOUR PERSONAL CODE OF SUCCESS ===
-Star Energies: ${energies.energy1}, ${energies.energy2}, ${energies.energy3}, ${energies.energy4}, ${energies.energy5}
-
 ${starDescriptions.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ')}
 
 === YOUR MONEY TRIANGLE ===
-Triangle Energies: ${energies.topEnergy}, ${energies.bottomLeftEnergy}, ${energies.bottomRightEnergy}, ${energies.midLeftEnergy}, ${energies.midRightEnergy}, ${energies.bottomCenterEnergy}
-
 ${triangleDescriptions.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ')}
 
 === YOUR ENERGIES DECODED TABLE ===
 ${energyTable.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ')}
 
-© 2025 Karma_Decoded | Maria Fistican. All rights reserved.
-  `;
+=== YOUR ROADMAP AND LIFE PURPOSE ===
+${roadmapContent.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ')}
+
+© 2025 Karma_Decoded | Maria Fistican. All rights reserved.`;
 
   const blob = new Blob([fullContent], {type: 'text/plain'});
   const url = URL.createObjectURL(blob);
@@ -671,11 +1124,15 @@ ${energyTable.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ')}
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-});
+}
+
 
 </script>
 </body>
 </html>
+
+
+
 
 
 
